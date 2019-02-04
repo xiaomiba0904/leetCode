@@ -27,6 +27,31 @@ int maxArea(int* height, int heightSize) {
 	return value;
 }
 
+
+int maxArea_best(int* height, int heightSize){
+	int value = 0;
+	if (heightSize < 2) {
+		return value;
+	}
+	int i = 0;
+	int j = heightSize - 1;
+	int h = 0;
+	int tmp = 0;
+	while (i < j) {
+		h = height[i] > height[j] ? height[j] : height[i];
+		tmp = h * (j - i);
+		value = value > tmp ? value : tmp;
+
+		if (height[i] < height[j]) {
+			i++;
+		}else {
+			j--;
+		}
+	}
+	return value;
+}
+
+
 int main(int argc, char const *argv[])
 {
 	int c[] = {1,8,6,2,5,4,8,3,7};
