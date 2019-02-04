@@ -79,7 +79,6 @@ struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) {
     		sum_value = 0;
     	}
 
-
 		if (last == NULL) {
 			header = this;
 			last = this;
@@ -92,6 +91,36 @@ struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) {
 
     return header;
 }
+
+
+struct ListNode* addTwoNumbers_best(struct ListNode* l1, struct ListNode* l2) {
+    int answer,flag=0;
+    struct ListNode *tail,*head;
+    head = (struct ListNode*)calloc(1,sizeof(struct ListNode));
+    tail = head;
+    while(l1 || l2 || flag)
+    {
+    	struct ListNode *add = (struct ListNode*)malloc(sizeof(struct ListNode));
+    	answer = l1 ? l1->val : 0;
+    	answer += l2 ? l2->val : 0;
+    	answer += flag;
+    	flag = (answer>9) ? 1 : 0;
+    	add->val = (answer>9) ? answer-10 : answer;
+    	add->next = NULL;
+    	tail->next = add;
+    	tail = tail->next;
+    	if(l1)
+    		l1 = l1->next;
+    	if(l2)
+    		l2 = l2->next;
+    }
+    struct ListNode *temp;
+    temp = head;
+    head = head->next;
+    free(temp);
+    return head;
+}
+
 
 
 int main(int argc, char const *argv[])
