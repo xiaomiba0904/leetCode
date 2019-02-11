@@ -2,28 +2,31 @@
 #include <float.h>
 
 
-double myPow(double x, int n) {
-	double result =1.0;
-
-    if (n == 0) {
-        return 0.0;
-    }else if( n > 0) {
-        for (int i = 0; i < n; ++i)
+double myPow_best(double x, int n) {
+	if(0 < n)
+    {
+        if(0 == n%2)
         {
-        	result = result * x;
-        	if (result >= DBL_MAX) {
-        		return DBL_MAX;
-        	}
+            return myPow(x,n/2)*myPow(x,n/2);
         }
-        return result;
-    }else {
-    	for (int i = 0; i < n * -1; ++i)
-    	{
-    		result = result * x;
-    		if (result >= DBL_MAX) {
-        		return DBL_MIN;
-        	}
-    	}
-    	return 1/result;
+        else
+        {
+            n = n - 1;
+            return myPow(x,n/2)*myPow(x,n/2)*x;
+        }
     }
+    else if(0 > n)
+    {
+        //考虑边界 -2147483648
+        if(2147483647 == abs(n+1))
+        {
+            x = 1/x;
+            n = abs(n+1);
+            return myPow(x,n)*x;
+        }
+        x = 1/x;
+        n = 0 - n;
+        return myPow(x,n);
+    }
+    return 1;
 }
