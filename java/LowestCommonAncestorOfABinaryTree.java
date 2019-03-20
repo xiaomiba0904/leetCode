@@ -9,7 +9,7 @@ public class LowestCommonAncestorOfABinaryTree {
         TreeNode left = lowestCommonAncestor(root.left, p, q);
         TreeNode right = lowestCommonAncestor(root.right, p, q);
         if (left != null && right != null) {
-            return null;
+            return root;
         }else if (left != null) {
             return left;
         }else if (right != null) {
